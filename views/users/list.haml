@@ -1,4 +1,4 @@
 !!! XML
 %ald:user-list(xmlns:ald='ald://api/users/list/schema/2012')<
   - users.each do |user|
-    %ald:user{ filter(user, %w[name id]) }/
+    %ald:user{ prefix(filter(user, %w[name id])) }/

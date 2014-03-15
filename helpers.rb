@@ -19,6 +19,10 @@ module ALD
       data.to_a.map(&:serializable_hash)
     end
 
+    def prefix(hash)
+      Hash[hash.map { |k, v| ['ald:' + k, v] }]
+    end
+
     def filter(hash, keys)
       Helpers.filter(hash, keys)
     end
