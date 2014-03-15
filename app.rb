@@ -10,7 +10,7 @@ require 'haml'
 require 'liquid'
 require './liquid'
 
-require 'yaml'
+require 'uri'
 require 'digest/md5'
 
 require './filters'
@@ -28,7 +28,15 @@ require './routes/users'
 #require './routes/stdlib/candidates'
 #require './routes/stdlib/pending'
 
-ActiveRecord::Base.establish_connection(YAML::load(File.open('database.yml')))
+uri = URI.parse(ENV["DATABASE_URL"])
+ActiveRecord::Base.establish_connection(
+  :adapter  => 'postgresql',
+  :database => (uri.path || "").split("/")[1],
+  :username => uri.user,
+  :password => uri.password,
+  :host     => uri.host,
+  :port     => uri.port
+)
 
 module ALD
   VERSION = '0.0.0'
