@@ -1,0 +1,2 @@
+!!! XML
+%ald:user(xmlns:ald='ald://api/users/describe/schema/2012'){ prefix(filter(user, %w[id name mail mail-md5 suspended])), 'ald:joined' => user['joined'].strftime('%Y-%m-%dT%H:%M:%S') }

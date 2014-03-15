@@ -15,6 +15,16 @@ module ALD
       end
     end
 
+    def describe_user(user)
+      user_hash = Hash[ %w[name id joined privileges].collect { |key| [key, user.send(key.to_sym)] } ]
+      user_hash['mail-md5'] = Digest::MD5.hexdigest(user.mail)
+
+      # mail (only if authenticated)
+      # privilege (list of strings)
+
+      format :"users/describe", 'user' => user_hash
+    end
+
     def hash(data)
       data.to_a.map(&:serializable_hash)
     end

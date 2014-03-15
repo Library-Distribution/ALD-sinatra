@@ -11,6 +11,7 @@ require 'liquid'
 require './liquid'
 
 require 'yaml'
+require 'digest/md5'
 
 require './filters'
 require './helpers'
