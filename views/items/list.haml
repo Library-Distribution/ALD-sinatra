@@ -1,0 +1,4 @@
+!!! XML
+%ald:item-list(xmlns:ald='ald://api/items/list/schema/2012')<
+  - items.each do |item|
+    %ald:item{ filter(item, %w[name version id]) }/
