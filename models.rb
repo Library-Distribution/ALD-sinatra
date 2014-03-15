@@ -1,11 +1,13 @@
-class IdRecord < ActiveRecord::Base
+module IdRecord
   def id
     super.unpack('H*').first.upcase
   end
 end
 
-class Item < IdRecord
+class Item < ActiveRecord::Base
+  include IdRecord
 end
 
-class User < IdRecord
+class User < ActiveRecord::Base
+  include IdRecord
 end
