@@ -3,6 +3,8 @@ language: ruby
 rvm:
   - 2.0.0
 
+install: bundle install
+
 env: DATABASE_URL='postgres://postgres@localhost/ALD'
 before_script:
   - psql -c 'create database ALD;' -U postgres
