@@ -1,8 +1,6 @@
 #! ruby
 
 require 'sinatra'
-use Rack::Reloader
-
 require 'active_record'
 require 'pg'
 require 'haml'
