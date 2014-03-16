@@ -16,3 +16,18 @@ get '/items/list' do
 
   format(:"items/list", "items" => items)
 end
+
+get %r{/items/describe/([0-9a-fA-F]{32})} do |id|
+  item = Item.find(id)
+  format :'items/describe', 'item' => item
+end
+
+get '/items/describe/:name/:version' do |name, version|
+  if ['latest', 'first'].include? version
+    # todo
+  else
+    item = Item.find_by name: name, version: version
+  end
+
+  format :'items/describe', 'item' => item
+end
