@@ -19,6 +19,8 @@ end
 
 get %r{/items/describe/([0-9a-fA-F]{32})} do |id|
   item = Item.find(id)
+  halt 404 if item.nil?
+
   format :'items/describe', 'item' => item
 end
 
@@ -28,6 +30,7 @@ get '/items/describe/:name/:version' do |name, version|
   else
     item = Item.find_by name: name, version: version
   end
+  halt 404 if item.nil?
 
   format :'items/describe', 'item' => item
 end
