@@ -1,0 +1,13 @@
+language: ruby
+
+rvm:
+  - 2.1.0
+  - 2.0.0
+
+env: DATABASE_URL='postgres://postgres@localhost/ALD'
+before_script:
+  - psql -c 'create database ALD;' -U postgres
+addons:
+  postgresql: "9.3"
+
+script: ruby tests/version_test.rb
