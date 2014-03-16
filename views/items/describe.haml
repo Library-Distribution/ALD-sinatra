@@ -6,6 +6,9 @@
 			%ald:author{prefix(filter(author, %w[name id user-name homepage email]))}/
 	%ald:dependencies
 	%ald:requirements
+	%ald:ratings
+		- item.ratings.each do |rating|
+			%ald:rating{:rating => rating.rating}
 	%ald:tags
 		- item.tags.each do |tag|
 			%ald:tag{'ald:name' => tag}/
