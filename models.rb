@@ -24,8 +24,12 @@ class Item < ActiveRecord::Base
   def user_id
     IdRecord.hex(super)
   end
+
+  belongs_to :user
 end
 
 class User < ActiveRecord::Base
   include IdRecord
+
+  has_many :items, dependent: :restrict_with_error
 end
