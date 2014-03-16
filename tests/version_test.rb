@@ -1,4 +1,4 @@
-require './app'
+require_relative '../app'
 require 'test/unit'
 require 'rack/test'
 require 'rexml/document'
