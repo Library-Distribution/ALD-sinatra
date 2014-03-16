@@ -33,12 +33,16 @@ module ALD
       Hash[hash.map { |k, v| ['ald:' + k, v] }]
     end
 
-    def filter(hash, keys)
-      Helpers.filter(hash, keys)
+    def filter(data, keys)
+      Helpers.filter(data, keys)
     end
 
-    def self.filter(hash, keys) # to be accessible by other code
-      hash.select { |k, v| keys.include? k }
+    def self.filter(data, keys) # to be accessible by other code
+      if data.is_a? Hash # filter this hash
+        data.select { |k, v| keys.include? k }
+      else # make a hash from this object
+        Hash[keys.select { |k| data.respond_to? k }.map { |k| [k, data.send(k.to_sym)] }]
+      end
     end
 
     def restrict(data)
