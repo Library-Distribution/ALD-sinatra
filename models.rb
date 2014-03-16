@@ -33,6 +33,7 @@ class Item < ActiveRecord::Base
   end
 
   belongs_to :user
+  belongs_to :item_type
 end
 
 class User < ActiveRecord::Base
@@ -40,4 +41,9 @@ class User < ActiveRecord::Base
   include Liquidable
 
   has_many :items, dependent: :restrict_with_error
+end
+
+class ItemType < ActiveRecord::Base
+  include Liquidable
+  self.table_name = 'types'
 end
