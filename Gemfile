@@ -11,3 +11,6 @@ gem "pg"
 # templating engines:
 gem "liquid"
 gem "haml"
+
+# tests
+gem "rack-test"
