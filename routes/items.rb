@@ -14,5 +14,5 @@ get '/items/list' do
 
   items = restrict(items) # offset and limit
 
-  format(:"items/list", "items" => hash(items))
+  format(:"items/list", "items" => items)
 end

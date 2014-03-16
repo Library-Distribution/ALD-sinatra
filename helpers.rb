@@ -25,10 +25,6 @@ module ALD
       format :"users/describe", 'user' => user_hash
     end
 
-    def hash(data)
-      data.to_a.map(&:serializable_hash)
-    end
-
     def prefix(hash)
       Hash[hash.map { |k, v| ['ald:' + k, v] }]
     end

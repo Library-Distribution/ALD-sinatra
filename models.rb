@@ -18,8 +18,15 @@ module IdRecord
   end
 end
 
+module Liquidable
+  def to_liquid
+    serializable_hash
+  end
+end
+
 class Item < ActiveRecord::Base
   include IdRecord
+  include Liquidable
 
   def user_id
     IdRecord.hex(super)
@@ -30,6 +37,7 @@ end
 
 class User < ActiveRecord::Base
   include IdRecord
+  include Liquidable
 
   has_many :items, dependent: :restrict_with_error
 end
