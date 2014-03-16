@@ -13,20 +13,15 @@ require './liquid'
 require 'uri'
 require 'digest/md5'
 
+def require_dir(path)
+  Dir["#{File.dirname(__FILE__)}/#{path}/*.rb"].each { |file| require(file) }
+end
+
 require './filters'
 require './helpers'
 require './models'
 
-require './routes/general'
-require './routes/items'
-#require './routes/items/review'
-require './routes/users'
-#require './routes/users/registration'
-#require './routes/users/suspension'
-#require './routes/stdlib'
-#require './routes/stdlib/releases'
-#require './routes/stdlib/candidates'
-#require './routes/stdlib/pending'
+require_dir 'routes'
 
 uri = URI.parse(ENV["DATABASE_URL"])
 ActiveRecord::Base.establish_connection(
