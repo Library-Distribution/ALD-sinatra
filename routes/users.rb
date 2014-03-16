@@ -8,7 +8,7 @@ get %r{/users/describe/([0-9a-fA-F]{32})} do |id|
   describe_user user
 end
 
-get %r{/users/describe/(.+)} do |name|
+get '/users/describe/:name' do |name|
   user = User.find_by_name(name)
   describe_user user
 end
