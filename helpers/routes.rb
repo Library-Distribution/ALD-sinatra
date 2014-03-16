@@ -13,6 +13,8 @@ module ALD
             liquid view,
                 :locals => data,
                 :content_type => type
+          else
+            halt 406
         end
       end
 
