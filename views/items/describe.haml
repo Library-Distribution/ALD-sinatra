@@ -1,5 +1,5 @@
 !!! XML
-%ald:item(xmlns:ald='ald://api/items/describe/schema/2012'){prefix(filter(item, %w[name version summary rating downloads])), 'ald:type' => item.item_type.name}
+%ald:item(xmlns:ald='ald://api/items/describe/schema/2012'){prefix(filter(item, %w[id name version summary rating downloads])), 'ald:type' => item.item_type.name}
 	%ald:user{'ald:name' => item.user.name, 'ald:id' => item.user.id}/
 	%ald:authors
 		- item.authors.each do |author|
@@ -12,4 +12,3 @@
 	%ald:tags
 		- item.tags.each do |tag|
 			%ald:tag{'ald:name' => tag}/
-	
