@@ -1,6 +1,10 @@
 module IdRecord
   def id
-    super.unpack('H*').first.upcase
+    IdRecord.hex(super)
+  end
+
+  def self.hex(binary)
+    binary.unpack('H*').first.upcase
   end
 
   def self.included(o)
@@ -16,6 +20,10 @@ end
 
 class Item < ActiveRecord::Base
   include IdRecord
+
+  def user_id
+    IdRecord.hex(super)
+  end
 end
 
 class User < ActiveRecord::Base
