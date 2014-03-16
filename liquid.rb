@@ -7,7 +7,7 @@ module ALD
     end
 
     def filter(object, *keys)
-      Helpers.filter(object, keys)
+      SinatraHelpers::Templates.filter(object, keys)
     end
   end
 end
