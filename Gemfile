@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.0.0"
 
+# server:
 gem "thin"
 gem "sinatra"
 
@@ -12,5 +13,12 @@ gem "pg"
 gem "liquid"
 gem "haml"
 
-# tests
-gem "rack-test"
+# tests:
+group :test do
+  gem "rack-test"
+end
+
+# development:
+group :development do
+  gem "foreman"
+end
