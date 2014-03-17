@@ -1,4 +1,4 @@
-get '/items/list' do
+get '/items/?' do
 
   items = Item.where(
     conditions(
@@ -17,14 +17,14 @@ get '/items/list' do
   format(:"items/list", "items" => items)
 end
 
-get %r{/items/describe/([0-9a-fA-F]{32})} do |id|
+get %r{/items/([0-9a-fA-F]{32})} do |id|
   item = Item.find(id)
   halt 404 if item.nil?
 
   format :'items/describe', 'item' => item
 end
 
-get '/items/describe/:name/:version' do |name, version|
+get '/items/:name/:version' do |name, version|
   if ['latest', 'first'].include? version
     # todo
   else
