@@ -13,6 +13,8 @@ gem "pg"
 gem "liquid"
 gem "haml"
 
+gem "ALD"
+
 # tests:
 group :test do
   gem "rack-test"
