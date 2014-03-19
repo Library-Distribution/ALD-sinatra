@@ -7,6 +7,7 @@ require 'haml'
 require 'liquid'
 require 'uri'
 require 'digest/md5'
+require 'digest/sha2'
 
 def require_dir(path)
   Dir["#{File.dirname(__FILE__)}/#{path}/*.rb"].each { |file| require(file) }
