@@ -5,9 +5,12 @@ require 'active_record'
 require 'pg'
 require 'haml'
 require 'liquid'
+require 'ALD'
+
 require 'uri'
 require 'digest/md5'
 require 'digest/sha2'
+require 'tempfile'
 
 def require_dir(path)
   Dir["#{File.dirname(__FILE__)}/#{path}/*.rb"].each { |file| require(file) }
