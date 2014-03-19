@@ -7,18 +7,22 @@ module IdRecord
     binary.unpack('H*').first.upcase
   end
 
+  def self.unhex(str)
+    [str].pack('H*')
+  end
+
   def self.included(o)
     o.extend(ClassMethods)
   end
 
   module ClassMethods
     def find(*args)
-      args = [[args.first].pack('H*')] unless args.length > 1 || args.first.is_a?(Array) # workaround if just ID is passed
+      args = [IdRecord.unhex(args.first)] unless args.length > 1 || args.first.is_a?(Array) # workaround if just ID is passed
       super *args
     end
 
     def exists?(conditions = :none)
-      conditions = [conditions].pack('H*') if conditions.is_a?(String) # workaround if just ID is passed
+      conditions = IdRecord.unhex(conditions) if conditions.is_a?(String) # workaround if just ID is passed
       super conditions
     end
   end
