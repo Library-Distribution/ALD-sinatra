@@ -20,23 +20,31 @@ An incomplete implementation of an ALD server, based on Ruby and Sinatra. It run
 ### Development
 * [foreman](https://github.com/ddollar/foreman)
 
-## Installation
-Download or `git clone` the repository. Open the console and navigate to it, then run `bundle install`.
+### Ruby
+ALD-sinatra is developed, tested and deployed on Ruby 2.0.0. Earlier versions will very likely fail.
 
-The app uses PostgreSQL for data storage. To run it, you must have PostgreSQL installed and running.
+## Installation and Setup
+Follow these simple steps:
+```sh
+# Make sure you run Ruby >= 2.0.0, e.g. with:
+# rvm use 2.0.0
 
-## Setup
-To run the server successfully, you must first configure an environment variable called `DATABASE_URL`
-in the form of `DATABASE_URL=postgres://<user>:<password>@<host>:<port>/<DB>` to point to your
-PostgreSQL database. (See next paragraph on how to this automatically.)
+git clone https://github.com/Library-Distribution/ALD-sinatra.git # clone the repo
 
-You must also have a PostgreSQL database with several tables. Given you have PostgreSQL installed and running,
-run `rake db:setup` to create the database and its tables, and setup the app to use them.
+cd ALD-sinatra
+bundle install # install dependencies
 
-Then just run `foreman start`.
+# Make sure postgreSQL 9.3+ is installed.
+# See the instructions on <http://www.postgresql.org/download/>
 
-To test if all is well, open your browser and go to `localhost:5000/items` (or whatever port foreman tells you) and see if you get an (initially empty)
-list of items (in XML or JSON, depending on your browser configuration).
+rake db:setup # configure database etc.
+# To automate this step, run: [sudo] rake db:setup DB_SETUP=true DB_USER=<user> DB_PASSWORD=<password> DB_DATABASE=<name> [DB_PORT=<port> DB_HOST=<host>]
+# User, password and database can be set interactively. If you want to change the port (defaults to 5432) or the host (defaults to localhost), you must set it as seen above.
+
+foreman start # start the app
+```
+
+To test if all is well, open your browser and go to `localhost:5000/version` (or whatever port foreman tells you) and see if you get the server version.
 
 ## Contributions
 Any pull requests or issue reports are welcome.
