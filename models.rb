@@ -43,7 +43,6 @@ class Item < ActiveRecord::Base
   end
 
   belongs_to :user
-  belongs_to :item_type
 
   has_many :ratings, foreign_key: 'item'
   has_many :rating_users, through: :ratings, source: :user
@@ -57,11 +56,6 @@ class User < ActiveRecord::Base
 
   has_many :ratings, foreign_key: 'user'
   has_many :rated_items, through: :ratings, source: :item
-end
-
-class ItemType < ActiveRecord::Base
-  include Liquidable
-  self.table_name = 'types'
 end
 
 class Rating < ActiveRecord::Base
