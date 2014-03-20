@@ -10,7 +10,7 @@ An incomplete implementation of an ALD server, based on Ruby and Sinatra. It run
 
 ## Dependencies
 * [Sinatra](http://www.sinatrarb.com/), running on [Thin](http://code.macournoyer.com/thin/)
-* [ActiveRecord](https://rubygems.org/gems/activerecord) and [pg](https://bitbucket.org/ged/ruby-pg/wiki/Home), for database access
+* [ActiveRecord](https://rubygems.org/gems/activerecord), [pg](https://bitbucket.org/ged/ruby-pg/wiki/Home) and [ar_pg_array](https://github.com/funny-falcon/activerecord-postgresql-arrays), for database access
 * [Liquid](http://liquidmarkup.org/) and [Haml](http://haml.info/) templating engines
 * [ALD](https://github.com/Library-Distribution/ALD.rb) for package analysis
 
@@ -23,12 +23,15 @@ An incomplete implementation of an ALD server, based on Ruby and Sinatra. It run
 ## Installation
 Download or `git clone` the repository. Open the console and navigate to it, then run `bundle install`.
 
-You must also have a PostgreSQL database with several tables. Those are not yet documented as they're subject to frequent change at this stage.
+The app uses PostgreSQL for data storage. To run it, you must have PostgreSQL installed and running.
 
 ## Setup
 To run the server successfully, you must first configure an environment variable called `DATABASE_URL`
 in the form of `DATABASE_URL=postgres://<user>:<password>@<host>:<port>/<DB>` to point to your
-PostgreSQL database. (You can do this via a foreman `.env` file.)
+PostgreSQL database. (See next paragraph on how to this automatically.)
+
+You must also have a PostgreSQL database with several tables. Given you have PostgreSQL installed and running,
+run `rake db:setup` to create the database and its tables, and setup the app to use them.
 
 Then just run `foreman start`.
 

@@ -8,6 +8,7 @@ gem "sinatra"
 # database:
 gem "activerecord"
 gem "pg"
+gem "ar_pg_array"
 
 # templating engines:
 gem "liquid"
