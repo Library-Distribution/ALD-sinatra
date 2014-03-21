@@ -29,7 +29,8 @@ module ALD
       end
 
       def authorize!
-        halt 401, { 'WWW-Authenticate' => 'Basic realm="Restricted API"' } unless authorized?
+        headers['WWW-Authenticate'] = 'Basic realm="Restricted API"'
+        halt 401 unless authorized?
       end
 
       def authorization
