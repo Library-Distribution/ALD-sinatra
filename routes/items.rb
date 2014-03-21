@@ -33,7 +33,7 @@ post '/items/?' do
       halt 400
     end
 
-    halt 400 unless ItemType.exists?(name: package.definition.type)
+    halt 400 unless ALD::ITEM_TYPES.include?(package.definition.type)
 
     halt 409 if Item.exists?(package.definition.id) ||
                 Item.exists?(name: package.definition.name, version: package.definition.version) # check if it already exists
@@ -46,7 +46,7 @@ post '/items/?' do
       name:        package.definition.name,
       version:     package.definition.version,
       # authors
-      item_type:   ItemType.find(name: package.definition.type).id, # existence ensured by check above
+      item_type:   package.definition.type, # existence ensured by check above
       description: package.definition.description,
       tags:        package.definition.tags
     )

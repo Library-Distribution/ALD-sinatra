@@ -37,4 +37,6 @@ module ALD
   VERSION = '0.0.0'
 
   OUTPUT_TYPES = %w[text/xml application/xml application/json]
+
+  ITEM_TYPES = %w[lib app]
 end
