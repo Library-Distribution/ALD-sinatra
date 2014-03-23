@@ -64,3 +64,6 @@ class Rating < ActiveRecord::Base
   belongs_to :item, foreign_key: 'item'
   belongs_to :user, foreign_key: 'user'
 end
+
+class DigestAuthToken < ActiveRecord::Base
+end

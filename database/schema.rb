@@ -15,6 +15,7 @@ ActiveRecord::Schema.define do |s|
     t.integer   :downloads,    default: 0
     t.string_array :tags
     t.string_array :authors,   default: [] # todo
+    t.string    :digest_auth
 
     t.index :id,               unique: true, name: 'items_id_index'
     t.index [:name, :version], unique: true
@@ -43,4 +44,12 @@ ActiveRecord::Schema.define do |s|
     t.index [:user, :item], unique: true, name: 'rating_index'
   end
   execute 'ALTER TABLE ratings ADD PRIMARY KEY USING INDEX rating_index'
+
+  create_table :digest_auth_tokens, options do |t|
+    t.string :opaque
+    t.string :nonce
+
+    t.index :opaque, unique: true, name: 'opaque_index'
+  end
+  execute 'ALTER TABLE digest_auth_tokens ADD PRIMARY KEY USING INDEX opaque_index'
 end

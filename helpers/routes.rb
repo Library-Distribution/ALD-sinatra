@@ -1,6 +1,8 @@
 module ALD
   module SinatraHelpers
     module Routes
+      AUTH_REALM = 'ALD API @ libba.herokuapp.com'
+
       def format(view, data)
         type = request.preferred_type(ALD::OUTPUT_TYPES)
         case type
@@ -29,19 +31,54 @@ module ALD
       end
 
       def authorize!
-        headers['WWW-Authenticate'] = 'Basic realm="Restricted API"'
-        halt 401 unless authorized?
+        if authorization.provided? && authorization.digest?
+          check_auth
+        else
+          start_auth
+        end
       end
+
+      private
 
       def authorization
-        @auth ||= Rack::Auth::Basic::Request.new(request.env)
+        @auth ||= Rack::Auth::Digest::Request.new(request.env)
       end
 
-      def authorized? # adapted from the Sinatra FAQ
-        authorization.provided? &&
-        authorization.basic? &&
-        authorization.credentials &&
-        User.exists?(name: authorization.credentials[0], pw: Digest::SHA256.hexdigest(authorization.credentials[1]))
+      def start_auth
+        opaque = Rack::Auth::Digest::Nonce.new.to_s
+        nonce = Rack::Auth::Digest::Nonce.new.to_s
+        DigestAuthToken.create(opaque: opaque, nonce: nonce)
+        headers['WWW-Authenticate'] = "Digest realm=\"#{AUTH_REALM}\" nonce=\"#{nonce}\" opaque=\"#{opaque}\""
+        halt 401
+      end
+
+      def check_auth
+        halt 403 unless authorization.correct_uri?
+        halt 403 unless authorization.realm == AUTH_REALM
+
+        digest = DigestAuthToken.find_by(opaque: authorization.opaque)
+        restart_auth if digest.nil?
+
+        restart_auth if digest.nonce != authorization.nonce.to_s
+        restart_auth if authorization.nonce.stale?
+
+        user = User.find_by(name: authorization.username)
+        restart_auth if user.nil?
+
+        ha1 = user.digest_auth
+        ha2 = Digest::MD5.hexdigest("#{authorization.method}:#{authorization.uri}")
+        response = Digest::MD5.hexdigest("#{ha1}:#{digest.nonce}:#{ha2}")
+
+        restart_auth unless response == authorization.response
+      end
+
+      def restart_auth
+        # cleanup the table
+        DigestAuthToken.all.each do |digest|
+          nonce = Rack::Auth::Digest::Nonce.parse(digest.nonce)
+          digest.destroy if nonce.stale?
+        end
+        start_auth
       end
     end
   end
