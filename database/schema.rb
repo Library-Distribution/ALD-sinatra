@@ -25,7 +25,6 @@ ActiveRecord::Schema.define do |s|
   create_table :users, options do |t|
     t.binary       :id,                      null: false, limit: 16
     t.string       :name, :mail ,            null: false
-    t.string       :pw,                      null: false, limit: 64
     t.string       :digest_auth,             null: false
     t.string_array :privileges, default: []
     t.timestamp    :joined
