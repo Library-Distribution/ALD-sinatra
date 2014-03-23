@@ -15,7 +15,6 @@ ActiveRecord::Schema.define do |s|
     t.integer   :downloads,    default: 0
     t.string_array :tags
     t.string_array :authors,   default: [] # todo
-    t.string    :digest_auth
 
     t.index :id,               unique: true, name: 'items_id_index'
     t.index [:name, :version], unique: true
@@ -27,6 +26,7 @@ ActiveRecord::Schema.define do |s|
     t.binary       :id,                      null: false, limit: 16
     t.string       :name, :mail ,            null: false
     t.string       :pw,                      null: false, limit: 64
+    t.string       :digest_auth,             null: false
     t.string_array :privileges, default: []
     t.timestamp    :joined
 
