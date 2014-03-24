@@ -1,0 +1,11 @@
+{% capture data %}
+{
+	"user" : { "name" : "{{ item.user.name }}", "id" : "{{ item.user_id}}" },
+	"ratings" : [
+	{% for rating in item.ratings %}
+		{{ rating.rating }}{% unless forloop.last %},{% endunless %}
+	{% endfor %}
+	]
+}
+{% endcapture %}{% assign data = data | parse_json %}
+{{ item | filter: 'id', 'name', 'version', 'summary', 'description', 'downloads', 'tags', 'reviewed', 'authors', 'uploaded' | merge: data | json }}
