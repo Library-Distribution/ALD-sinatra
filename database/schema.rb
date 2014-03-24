@@ -13,7 +13,7 @@ ActiveRecord::Schema.define do |s|
     t.timestamp :uploaded
     t.boolean   :reviewed,     default: false
     t.integer   :downloads,    default: 0
-    t.string_array :tags
+    t.string_array :tags,                       null: false
     t.string_array :authors,   default: [] # todo
 
     t.index :id,               unique: true, name: 'items_id_index'
