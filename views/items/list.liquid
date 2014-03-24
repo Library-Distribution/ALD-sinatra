@@ -1,5 +1,5 @@
 [
 {% for item in items %}
-	{{ item | filter: 'name', 'version', 'id' | json }}{% unless item == items.last %},{% endunless %}
+	{{ item | filter: 'name', 'version', 'id' | json }}{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]
