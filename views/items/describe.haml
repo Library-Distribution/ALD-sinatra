@@ -1,5 +1,6 @@
 !!! XML
 %ald:item(xmlns:ald='ald://api/items/describe/schema/2012'){prefix(filter(item, %w[id name version summary rating downloads])), 'ald:type' => item.item_type}
+	%ald:description= item.description
 	%ald:user{'ald:name' => item.user.name, 'ald:id' => item.user.id}/
 	%ald:authors
 		- item.authors.each do |author|
