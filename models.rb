@@ -30,7 +30,11 @@ end
 
 module Liquidable
   def to_liquid
-    serializable_hash
+    data = serializable_hash
+    self.class.reflect_on_all_associations.each do |association|
+      data[association.name.to_s] = self.send(association.name)
+    end
+    data
   end
 end
 
