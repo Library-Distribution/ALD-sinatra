@@ -25,7 +25,6 @@ module ALD
         user_hash['mail-md5'] = Digest::MD5.hexdigest(user.mail)
 
         # unset mail (only if authenticated)
-        # privilege (list of strings)
 
         format :"users/describe", 'user' => user_hash
       end
