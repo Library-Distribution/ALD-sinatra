@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   include IdRecord
   include Liquidable
 
-  has_many :items, dependent: :restrict_with_error
+  has_many :items, dependent: :restrict
 
   has_many :ratings, foreign_key: 'user'
   has_many :rated_items, through: :ratings, source: :item
